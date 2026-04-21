@@ -12,7 +12,9 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-  proxy:{
-    "/api":"http://localhost:3001"
+  server: {
+    proxy: {
+      "/api": "http://localhost:3001"
+    }
   }
 })
