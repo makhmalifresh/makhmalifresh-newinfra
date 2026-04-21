@@ -39,10 +39,10 @@ const StoreSettings = () => {
       setIsLoading(true);
       try {
         const [statusRes, feeRes, surgeRes, deliveryModeRes] = await Promise.all([
-          api.get('/admin/settings/store-status'),
-          api.get('/admin/settings/platform-fee'),
-          api.get('/admin/settings/surge-fee'),
-          api.get('/admin/settings/delivery-mode')
+          api.get('/settings/store-status'),
+          api.get('/settings/platform-fee'),
+          api.get('/settings/surge-fee'),
+          api.get('/settings/delivery-mode')
         ]);
 
         setIsOpen(statusRes.data.setting_value === 'true');

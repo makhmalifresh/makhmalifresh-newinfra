@@ -64,3 +64,12 @@ export const verifyAndSubmitPayment = async (req, res, next) => {
     next(err);
   }
 };
+
+export const getRazorpayLogs = async (req, res, next) => {
+  try {
+    const getOrderDetails = await razorpay.payments.all();
+    res.status(200).json({ getOrderDetails });
+  } catch (err) {
+    next(err);
+  }
+};

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import * as adminController from '../controllers/admin.controller.js';
 import * as settingController from '../controllers/setting.controller.js';
+import * as paymentController from '../controllers/payment.controller.js';
 import { verifyAdminJWT } from '../middlewares/auth.middleware.js';
 
 const router = Router();
@@ -10,6 +11,9 @@ router.post('/login', adminController.login);
 
 // Protect all following routes
 router.use(verifyAdminJWT);
+
+// Razorpay Logs
+router.get('/getrazorpay', paymentController.getRazorpayLogs);
 
 // Settings
 router.put('/settings/store-status', settingController.updateStoreStatusAdmin);
