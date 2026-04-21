@@ -156,19 +156,27 @@ async function drainQueue() {
       let attempts = 0;
       let success = false;
       
-      while (attempts < 3 && !success) {
+      while (attempts < 5 && !success) {
         try {
           await processOrderJob(jobData);
           success = true;
         } catch (jobError) {
           attempts++;
           logger.error(`Processing attempt ${attempts} failed for job ${jobData.jobId}`, { error: jobError.message });
-          if (attempts < 3) {
+          
+          if (attempts < 5) {
              const backoffMs = Math.pow(2, attempts) * 1000;
              logger.info(`Backing off for ${backoffMs}ms before retrying job ${jobData.jobId}`);
              await new Promise(res => setTimeout(res, backoffMs));
           } else {
-             logger.error(`Job ${jobData.jobId} permanently failed after 3 attempts.`);
+             logger.error(`🚨 SERIOUS FAILURE: Order ${jobData.jobId} failed deeply. Neon DB is likely down or sleeping. 
+Safely returning order package to Upstash Redis queue and pausing worker for 30s to prevent spam.`);
+             
+             // Safely place the item BACK on the line natively ensuring absoltue zero data loss.
+             await connection.lpush('makhmali:orderQueue', JSON.stringify(jobData));
+             
+             // Sleep the worker globally for 30 seconds to allow the DB to wake up without spamming limits
+             await new Promise(res => setTimeout(res, 30000));
           }
         }
       }
