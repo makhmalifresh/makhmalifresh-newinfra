@@ -21,7 +21,7 @@ import { errorHandler } from './middlewares/error.middleware.js';
 const app = express();
 
 app.use(cors({
-  origin: ["http://localhost:5173", "https://makhmalifresh.com"]
+  origin: ["http://localhost:5173", "https://www.makhmalifresh.com", "https://www.makhmalifresh-newinfra.vercel.app", "https://makhmalifresh.com", "https://makhmalifresh-newinfra.vercel.app"]
 }));
 
 app.use(bodyParser.json());
