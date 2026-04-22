@@ -77,7 +77,8 @@ export const updateSurgeFeeAdmin = async (req, res, next) => {
 export const updateDeliveryModeAdmin = async (req, res, next) => {
   try {
     const { delivery_mode } = req.body;
-    const allowed = ['manual', 'borzo_only', 'porter_only', 'automatic_cheapest'];
+    // future scope: automatic_cheapest when porter or any other delivery partner will be there
+    const allowed = ['manual', 'borzo_only', 'automatic_cheapest'];
     if (!delivery_mode || !allowed.includes(delivery_mode)) {
       return res.status(400).json({ error: `delivery_mode required and must be one of: ${allowed.join(', ')}` });
     }

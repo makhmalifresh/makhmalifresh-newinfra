@@ -88,7 +88,7 @@ export default function Footer() {
           <p>Your order will not be processed until payment is successfully completed. In case of payment failure, the order will be automatically cancelled.</p>
 
           <h4 className="font-semibold">3. Delivery</h4>
-          <p>Our delivery partners, Borzo and Porter, aim to deliver your order within the estimated timeframe. However, we are not liable for delays caused by traffic, weather, strikes, or operational issues.</p>
+          <p>Our delivery partner, Borzo aim to deliver your order within the estimated timeframe. However, we are not liable for delays caused by traffic, weather, strikes, or operational issues.</p>
           <p>The customer is responsible for providing accurate delivery details. We are not responsible for failed or delayed deliveries due to incorrect addresses or unavailability at the time of delivery.</p>
 
           <h4 className="font-semibold">4. Product Quality and Handling</h4>

@@ -22,7 +22,6 @@ import CouponManager from './components/admin/CouponManager';
 import ProductManager from './components/admin/ProductManager';
 import OfferManager from './components/admin/OfferManager';
 import OrderManager from './components/admin/OrderManager';
-import OrderLogs from './components/admin/OrderLogs';
 import RazorpayLogs from './components/admin/RazorpayLogs';
 
 export default function App() {
@@ -85,7 +84,6 @@ export default function App() {
             <Route path="products" element={<ProductManager />} />
             <Route path="coupons" element={<CouponManager />} />
             <Route path="offers" element={<OfferManager />} />
-            <Route path="logs" element={<OrderLogs />} />
             <Route path="razorpay" element={<RazorpayLogs/>} />
           </Route>
 

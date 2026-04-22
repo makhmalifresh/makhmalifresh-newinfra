@@ -30,8 +30,6 @@ const StoreSettings = () => {
   const deliveryModes = [
     { value: 'manual', label: 'Manual Selection', description: 'You manually choose the delivery partner for every order.' },
     { value: 'borzo_only', label: 'Borzo Only', description: 'System automatically assigns Borzo to all delivery orders.' },
-    { value: 'porter_only', label: 'Porter Only', description: 'System automatically assigns Porter to all delivery orders.' },
-    { value: 'automatic_cheapest', label: 'Auto (Cost Optimized)', description: 'System compares prices and selects the cheapest partner automatically.' }
   ];
 
   useEffect(() => {

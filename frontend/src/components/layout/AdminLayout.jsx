@@ -80,13 +80,6 @@ const NavigationLinks = () => {
         <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
       </NavLink>
 
-      <NavLink to="/admin/dashboard/logs" className={getNavLinkClasses}>
-        <div className="p-1.5 rounded-xl bg-white/5 group-hover:bg-white/10 transition-colors">
-          <Logs className="h-4 w-4" />
-        </div>
-        <span>Logs</span>
-        <ChevronRight className="h-4 w-4 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-      </NavLink>
     </nav>
   );
 };
