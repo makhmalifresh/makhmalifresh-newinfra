@@ -8,7 +8,7 @@ import axios from 'axios';
 import api from '../../api';
 import { currency } from '../../lib/utils';
 // We no longer need the tracking-specific constants here
-import OfferMarquee from '../shared/offerMarque';
+import OfferMarquee from '../shared/OfferMarque';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import CartPanel from '../cart/CartPanel';
