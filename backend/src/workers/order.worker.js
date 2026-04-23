@@ -131,14 +131,20 @@ async function processOrderJob(jobData) {
 }
 
 let isDraining = false;
+let pendingDrain = false;
 
 // Instant non-blocking drain queue
 async function drainQueue() {
-  if (isDraining) return;
+  if (isDraining) {
+    pendingDrain = true;
+    return;
+  }
   isDraining = true;
   
   try {
-    while (true) {
+    do {
+      pendingDrain = false;
+      while (true) {
       // Instantly parse the Redis queue. No blocking (0s execution latency)
       // Removes Upstash Idle penalty permanently.
       const result = await connection.rpop('makhmali:orderQueue');
@@ -181,6 +187,7 @@ Safely returning order package to Upstash Redis queue and pausing worker for 30s
         }
       }
     }
+    } while (pendingDrain);
   } catch (networkError) {
     logger.error('Redis Listener Network Error:', networkError);
   } finally {
