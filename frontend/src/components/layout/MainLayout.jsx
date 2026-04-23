@@ -247,7 +247,24 @@ export default function MainLayout() {
 
     try {
       toast.info("Proceeding to secure payment...");
-      const { data: razorpayData } = await api.post('/payment/create-order', { grandTotal });
+      
+      // --- GET AUTH TOKEN EARLY FOR SAFE CHECKOUT ---
+      const token = await getToken();
+      if (!token) {
+        toast.error("Authentication session timed out. Please log in again.");
+        return;
+      }
+      const secureApi = axios.create({
+        baseURL: api.defaults.baseURL,
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      // Pass orderPayload to backend so it can be cached for webhook redundancy
+      const { data: razorpayData } = await secureApi.post('/payment/create-order', { 
+        grandTotal, 
+        orderPayload 
+      });
+      
       const options = {
         key: razorpayData.keyId,
         amount: razorpayData.amount,
@@ -271,18 +288,12 @@ export default function MainLayout() {
         },
         handler: async function (response) {
           try {
-            // --- 1. GET THE AUTH TOKEN JUST-IN-TIME ---
-            // This guarantees we have the token before making protected calls.
-            const token = await getToken();
+            // We already have the token and secureApi from the outer scope,
+            // but just in case, we can ensure it's still valid or just use it.
             if (!token) {
               toast.error("Authentication session timed out. Please log in again.");
               return;
             }
-            // Manually set the auth header for this block of API calls
-            const secureApi = axios.create({
-              baseURL: api.defaults.baseURL,
-              headers: { 'Authorization': `Bearer ${token}` }
-            });
 
             if (saveAddress) {
                 try {
