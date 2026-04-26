@@ -85,8 +85,11 @@ export const verifyAndSubmitPayment = async (req, res, next) => {
 };
 
 export const getRazorpayLogs = async (req, res, next) => {
+  const options={
+    count: 100,
+  }
   try {
-    const getOrderDetails = await razorpay.payments.all();
+    const getOrderDetails = await razorpay.payments.all(options);
     res.status(200).json({ getOrderDetails });
   } catch (err) {
     next(err);
